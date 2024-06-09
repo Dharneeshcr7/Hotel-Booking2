@@ -1,48 +1,50 @@
-// just pre-load all the stuff that index.js lazily exports
-const internalRe = require('./internal/re')
-module.exports = {
-  re: internalRe.re,
-  src: internalRe.src,
-  tokens: internalRe.t,
-  SEMVER_SPEC_VERSION: require('./internal/constants').SEMVER_SPEC_VERSION,
-  SemVer: require('./classes/semver'),
-  compareIdentifiers: require('./internal/identifiers').compareIdentifiers,
-  rcompareIdentifiers: require('./internal/identifiers').rcompareIdentifiers,
-  parse: require('./functions/parse'),
-  valid: require('./functions/valid'),
-  clean: require('./functions/clean'),
-  inc: require('./functions/inc'),
-  diff: require('./functions/diff'),
-  major: require('./functions/major'),
-  minor: require('./functions/minor'),
-  patch: require('./functions/patch'),
-  prerelease: require('./functions/prerelease'),
-  compare: require('./functions/compare'),
-  rcompare: require('./functions/rcompare'),
-  compareLoose: require('./functions/compare-loose'),
-  compareBuild: require('./functions/compare-build'),
-  sort: require('./functions/sort'),
-  rsort: require('./functions/rsort'),
-  gt: require('./functions/gt'),
-  lt: require('./functions/lt'),
-  eq: require('./functions/eq'),
-  neq: require('./functions/neq'),
-  gte: require('./functions/gte'),
-  lte: require('./functions/lte'),
-  cmp: require('./functions/cmp'),
-  coerce: require('./functions/coerce'),
-  Comparator: require('./classes/comparator'),
-  Range: require('./classes/range'),
-  satisfies: require('./functions/satisfies'),
-  toComparators: require('./ranges/to-comparators'),
-  maxSatisfying: require('./ranges/max-satisfying'),
-  minSatisfying: require('./ranges/min-satisfying'),
-  minVersion: require('./ranges/min-version'),
-  validRange: require('./ranges/valid'),
-  outside: require('./ranges/outside'),
-  gtr: require('./ranges/gtr'),
-  ltr: require('./ranges/ltr'),
-  intersects: require('./ranges/intersects'),
-  simplifyRange: require('./ranges/simplify'),
-  subset: require('./ranges/subset'),
-}
+import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import authRoute from "./routes/auth.js";
+import usersRoute from "./routes/users.js";
+import hotelsRoute from "./routes/hotels.js";
+import roomsRoute from "./routes/rooms.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+const app = express();
+dotenv.config();
+
+const connect = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO);
+    console.log("Connected to mongoDB.");
+  } catch (error) {
+    throw error;
+  }
+};
+
+mongoose.connection.on("disconnected", () => {
+  console.log("mongoDB disconnected!");
+});
+
+//middlewares
+app.use(cors())
+app.use(cookieParser())
+app.use(express.json());
+
+app.use("/api/auth", authRoute);
+app.use("/api/users", usersRoute);
+app.use("/api/hotels", hotelsRoute);
+app.use("/api/rooms", roomsRoute);
+
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
+});
+
+app.listen(8800, () => {
+  connect();
+  console.log("Connected to backend.");
+});
