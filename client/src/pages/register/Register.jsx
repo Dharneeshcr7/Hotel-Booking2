@@ -2,12 +2,16 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import "./login.css";
+import "./register.css";
 
-const Login = () => {
+const Register = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
+    phone:undefined,
+    city:undefined,
+    country:undefined,
+    email:undefined
   });
 
   const { loading, error, dispatch } = useContext(AuthContext);
@@ -20,13 +24,13 @@ const Login = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
+    //dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post(`${process.env.BACKEND}/auth/login`, credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-      navigate("/")
+      const res = await axios.post(`${process.env.BACKEND}/auth/register`, credentials);
+      //dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+      navigate("/login")
     } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+      alert("Cannot Register");
     }
   };
 
@@ -34,6 +38,8 @@ const Login = () => {
   return (
     <div className="login">
       <div className="lContainer">
+        <div>REGISTER TO APP
+        </div>
         <input
           type="text"
           placeholder="username"
@@ -48,6 +54,34 @@ const Login = () => {
           onChange={handleChange}
           className="lInput"
         />
+        <input
+          type="text"
+          placeholder="phone"
+          id="phone"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="text"
+          placeholder="email"
+          id="email"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="text"
+          placeholder="city"
+          id="city"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="text"
+          placeholder="country"
+          id="country"
+          onChange={handleChange}
+          className="lInput"
+        />
         <button disabled={loading} onClick={handleClick} className="lButton">
           Login
         </button>
@@ -57,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
