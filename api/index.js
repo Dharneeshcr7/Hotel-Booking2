@@ -10,7 +10,19 @@ import cors from "cors";
 const app = express();
 dotenv.config();
 
+
+const corsOptions = {
+  origin: 'https://hotel-booking2-iota.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
+
+
+
 const connect = async () => {
+  console.log(process.env.MONGO)
   try {
     await mongoose.connect(process.env.MONGO);
     console.log("Connected to mongoDB.");
@@ -24,7 +36,7 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middlewares
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json());
 
