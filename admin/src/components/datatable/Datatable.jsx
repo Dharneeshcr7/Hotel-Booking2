@@ -5,14 +5,16 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { BACKEND } from "../../hostl";
 
 const Datatable = ({columns}) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState();
+  console.log(path)
   const { data, loading, error } = useFetch(`/${path}`);
-
   useEffect(() => {
+    console.log(data)
     setList(data);
   }, [data]);
 
@@ -53,7 +55,7 @@ const Datatable = ({columns}) => {
           Add New
         </Link>
       </div>
-      <DataGrid
+      {list && <DataGrid
         className="datagrid"
         rows={list}
         columns={columns.concat(actionColumn)}
@@ -61,7 +63,7 @@ const Datatable = ({columns}) => {
         rowsPerPageOptions={[9]}
         checkboxSelection
         getRowId={(row) => row._id}
-      />
+      />}
     </div>
   );
 };

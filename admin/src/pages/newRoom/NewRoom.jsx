@@ -6,13 +6,13 @@ import { useState } from "react";
 import { roomInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
-
+import { BACKEND } from "../../hostl";
 const NewRoom = () => {
   const [info, setInfo] = useState({});
   const [hotelId, setHotelId] = useState(undefined);
   const [rooms, setRooms] = useState([]);
 
-  const { data, loading, error } = useFetch("/hotels");
+  const { data, loading, error } = useFetch(`/hotels`);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));

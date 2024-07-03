@@ -6,13 +6,13 @@ import { useState } from "react";
 import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
-
+import { BACKEND } from "../../hostl";
 const NewHotel = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
 
-  const { data, loading, error } = useFetch("/rooms");
+  const { data, loading, error } = useFetch(`/rooms`);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -31,28 +31,14 @@ const NewHotel = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const list = await Promise.all(
-        Object.values(files).map(async (file) => {
-          const data = new FormData();
-          data.append("file", file);
-          data.append("upload_preset", "upload");
-          const uploadRes = await axios.post(
-            "https://api.cloudinary.com/v1_1/lamadev/image/upload",
-            data
-          );
-
-          const { url } = uploadRes.data;
-          return url;
-        })
-      );
 
       const newhotel = {
         ...info,
         rooms,
-        photos: list,
+        //photos: list,
       };
 
-      await axios.post("/hotels", newhotel);
+      await axios.post(`/hotels`, newhotel);
     } catch (err) {console.log(err)}
   };
   return (
