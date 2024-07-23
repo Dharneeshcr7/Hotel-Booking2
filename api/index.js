@@ -12,17 +12,11 @@ dotenv.config();
 
 
 const corsOptions = {
-  origin: 'https://hotel-booking2-iota.vercel.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204
+  origin: '*'
+  
 };
 
-
-
-
 const connect = async () => {
-  console.log(process.env.MONGO)
   try {
     await mongoose.connect(process.env.MONGO);
     console.log("Connected to mongoDB.");
