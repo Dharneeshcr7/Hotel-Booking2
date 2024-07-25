@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { BACKEND } from "../../hostl";
-
+import Cookies from 'js-cookie';
 const Datatable = ({columns}) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
@@ -20,7 +20,9 @@ const Datatable = ({columns}) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://hotel-booking2-17hc.onrender.com/api/${path}/${id}`);
+      await axios.delete(`https://hotel-booking2-17hc.onrender.com/api/${path}/${id}`,{ headers:{
+        auth:Cookies.get('access_token')
+      },withCredentials: true });
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };

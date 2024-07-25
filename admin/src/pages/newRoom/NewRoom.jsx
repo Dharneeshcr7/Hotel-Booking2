@@ -7,6 +7,7 @@ import { roomInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { BACKEND } from "../../hostl";
+import Cookies from 'js-cookie';
 const NewRoom = () => {
   const [info, setInfo] = useState({});
   const [hotelId, setHotelId] = useState(undefined);
@@ -22,7 +23,9 @@ const NewRoom = () => {
     e.preventDefault();
     const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
     try {
-      await axios.post(`https://hotel-booking2-17hc.onrender.com/api/rooms/${hotelId}`, { ...info, roomNumbers });
+      await axios.post(`https://hotel-booking2-17hc.onrender.com/api/rooms/${hotelId}`, { ...info, roomNumbers },{ headers:{
+        auth:Cookies.get('access_token')
+      },withCredentials: true });
     } catch (err) {
       console.log(err);
     }

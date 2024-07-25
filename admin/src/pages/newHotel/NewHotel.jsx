@@ -7,6 +7,7 @@ import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { BACKEND } from "../../hostl";
+import Cookies from 'js-cookie'
 const NewHotel = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
@@ -38,7 +39,9 @@ const NewHotel = () => {
         //photos: list,
       };
 
-      await axios.post(`https://hotel-booking2-17hc.onrender.com/api/hotels`, newhotel);
+      await axios.post(`https://hotel-booking2-17hc.onrender.com/api/hotels`, newhotel,{ headers:{
+        auth:Cookies.get('access_token')
+      },withCredentials: true });
     } catch (err) {console.log(err)}
   };
   return (
