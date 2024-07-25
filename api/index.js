@@ -12,7 +12,7 @@ dotenv.config();
 
 
 const corsOptions = {
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000','https://hotel-booking2-iota.vercel.app/','https://hotel-booking2-1.onrender.com'],
   credentials: true
   
 };
