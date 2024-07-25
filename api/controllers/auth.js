@@ -37,9 +37,9 @@ export const login = async (req, res, next) => {
     );
 
     const { password, isAdmin, ...otherDetails } = user._doc;
-    console.log(token)
+    
     res.cookie("access_token", token)
-    .json({ details: { ...otherDetails }, isAdmin });
+    .json({ details: { ...otherDetails }, isAdmin,token });
   } catch (err) {
     next(err);
   }
