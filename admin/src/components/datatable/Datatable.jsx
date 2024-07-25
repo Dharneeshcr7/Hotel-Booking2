@@ -12,7 +12,7 @@ const Datatable = ({columns}) => {
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState();
   console.log(path)
-  const { data, loading, error } = useFetch(`/${path}`);
+  const { data, loading, error } = useFetch(`https://hotel-booking2-17hc.onrender.com/api/${path}`);
   useEffect(() => {
     console.log(data)
     setList(data);
@@ -20,7 +20,7 @@ const Datatable = ({columns}) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/${path}/${id}`);
+      await axios.delete(`https://hotel-booking2-17hc.onrender.com/api/${path}/${id}`);
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };

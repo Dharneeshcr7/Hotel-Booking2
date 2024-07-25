@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 // import { AuthContext } from "../../context/AuthContext";
 import "./login.scss";
 import { BACKEND } from "../../hostl";
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -24,11 +25,11 @@ const Login = () => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post('https://hotel-booking2-17hc.onrender.com/api/auth/login', credentials);
+      const res = await axios.post('https://hotel-booking2-17hc.onrender.com/api/auth/login', credentials,{ withCredentials: true });
       console.log(res)
       if (res.data.isAdmin) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-        
+        Cookies.set('access_token',res.data.token,{path:'/'})
         navigate("/");
       } else {
         dispatch({
