@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./searchItem.css";
-
+import Cookies from 'js-cookie';
 const SearchItem = ({ item }) => {
   return (
     <div className="searchItem">

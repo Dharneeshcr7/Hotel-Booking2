@@ -25,3 +25,7 @@
   cursor: pointer;
   color: #003580;
 }
+
+.navItems{
+  display: flex;
+}

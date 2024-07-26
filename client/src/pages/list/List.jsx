@@ -7,7 +7,8 @@ import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import useFetch from "../../hooks/useFetch";
-
+import { BACKEND } from "../../hostl";
+import Cookies from 'js-cookie';
 const List = () => {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
@@ -18,7 +19,7 @@ const List = () => {
   const [max, setMax] = useState(undefined);
 
   const { data, loading, error, reFetch } = useFetch(
-    `${process.env.BACKEND}/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
+    `https://hotel-booking2-17hc.onrender.com/api/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
   );
 
   const handleClick = () => {

@@ -13,6 +13,7 @@
     "axios": "^0.27.2",
     "date-fns": "^2.28.0",
     "dotenv": "^16.4.5",
+    "js-cookie": "^3.0.5",
     "react": "^18.0.0",
     "react-cookie": "^7.1.4",
     "react-date-range": "^1.4.0",
@@ -44,5 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },"proxy":"https://hotel-booking2-17hc.onrender.com/api"
+  }
 }

@@ -1,9 +1,10 @@
 import useFetch from "../../hooks/useFetch";
 import "./featured.css";
-
+import { BACKEND } from "../../hostl";
+import Cookies from 'js-cookie';
 const Featured = () => {
   const { data, loading, error } = useFetch(
-    `${process.env.BACKEND}/hotels/countByCity?cities=berlin,madrid,london`
+    `https://hotel-booking2-17hc.onrender.com/api/hotels/countByCity?cities=berlin,madrid,london`
   );
 
   return (

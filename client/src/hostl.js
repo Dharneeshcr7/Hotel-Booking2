@@ -1,0 +1,1 @@
+export const BACKEND="https://hotel-booking2-17hc.onrender.com"

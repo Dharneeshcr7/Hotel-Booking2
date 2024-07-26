@@ -1,8 +1,9 @@
 import useFetch from "../../hooks/useFetch";
 import "./featuredProperties.css";
-
+import { BACKEND } from "../../hostl";
+import Cookies from 'js-cookie';
 const FeaturedProperties = () => {
-  const { data, loading, error } = useFetch(`${process.env.BACKEND}/hotels?featured=true&limit=4`);
+  const { data, loading, error } = useFetch(`https://hotel-booking2-17hc.onrender.com/api/hotels?featured=true&limit=4`);
 
   return (
     <div className="fp">

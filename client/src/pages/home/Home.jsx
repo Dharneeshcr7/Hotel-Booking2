@@ -6,7 +6,7 @@ import MailList from "../../components/mailList/MailList";
 import Navbar from "../../components/navbar/Navbar";
 import PropertyList from "../../components/propertyList/PropertyList";
 import "./home.css";
-
+import Cookies from 'js-cookie';
 const Home = () => {
   return (
     <div>

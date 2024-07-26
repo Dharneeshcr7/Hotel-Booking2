@@ -3,7 +3,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./register.css";
-
+import { BACKEND } from "../../hostl";
+import Cookies from 'js-cookie';
 const Register = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
@@ -26,7 +27,7 @@ const Register = () => {
     e.preventDefault();
     //dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post(`${process.env.BACKEND}/auth/register`, credentials);
+      const res = await axios.post(`https://hotel-booking2-17hc.onrender.com/api/auth/register`, credentials);
       //dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       navigate("/login")
     } catch (err) {
