@@ -41,6 +41,10 @@ const Login = () => {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
     }
   };
+  const handleReg= (e)=>{
+    e.preventDefault();
+    navigate("/register")
+  }
 
   return (
     <div className="login">
@@ -63,6 +67,9 @@ const Login = () => {
         />
         <button disabled={loading} onClick={handleClick} className="lButton">
           Login
+        </button>
+        <button disabled={loading} onClick={handleReg} className="lButton">
+          Register
         </button>
         {error && <span>{error.message}</span>}
       </div>

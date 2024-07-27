@@ -34,12 +34,15 @@ const Register = () => {
       alert("Cannot Register");
     }
   };
-
+  const handleLog= (e)=>{
+    e.preventDefault();
+    navigate("/login")
+  }
 
   return (
     <div className="login">
       <div className="lContainer">
-        <div>REGISTER TO APP
+        <div>Registration Page
         </div>
         <input
           type="text"
@@ -84,6 +87,9 @@ const Register = () => {
           className="lInput"
         />
         <button disabled={loading} onClick={handleClick} className="lButton">
+          Register
+        </button>
+        <button disabled={loading} onClick={handleLog} className="lButton">
           Login
         </button>
         {error && <span>{error.message}</span>}

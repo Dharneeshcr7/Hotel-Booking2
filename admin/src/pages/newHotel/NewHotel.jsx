@@ -8,11 +8,12 @@ import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { BACKEND } from "../../hostl";
 import Cookies from 'js-cookie'
+import { useNavigate } from "react-router-dom";
 const NewHotel = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
-
+  const navigate=useNavigate()
   const { data, loading, error } = useFetch(`https://hotel-booking2-17hc.onrender.com/api/rooms`);
 
   const handleChange = (e) => {
@@ -42,7 +43,8 @@ const NewHotel = () => {
       await axios.post(`https://hotel-booking2-17hc.onrender.com/api/hotels`, newhotel,{ headers:{
         auth:Cookies.get('access_token')
       },withCredentials: true });
-    } catch (err) {console.log(err)}
+      navigate("/")
+    } catch (err) {alert("Fill all the fields")}
   };
   return (
     <div className="new">

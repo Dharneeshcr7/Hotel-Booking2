@@ -27,7 +27,7 @@ const NewRoom = () => {
         auth:Cookies.get('access_token')
       },withCredentials: true });
     } catch (err) {
-      console.log(err);
+      alert("Fill all the fields");
     }
   };
 
